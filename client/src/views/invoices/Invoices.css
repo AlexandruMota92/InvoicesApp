@@ -1,0 +1,12 @@
+.wrapper {
+    display: flex;
+    justify-content: flex-start;
+    width: 100%;
+    flex-direction: column;
+}
+
+.dataGrid {
+    border: none;
+    width: 100%;
+    margin-top: 16px;
+}
