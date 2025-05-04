@@ -13,12 +13,14 @@ RUN npm install --legacy-peer-deps
 
 # Copy the rest of the application code
 COPY . .
+COPY .env ./
+RUN npx nest build
 
 # Generate Prisma Client code
 RUN npx prisma generate
 
-# Expose the port the app runs on, here, I was using port 4200
-EXPOSE 4200
+# Expose the port the app runs on, here, I was using port 5000
+EXPOSE 5000
 
 # Command to run the app
-CMD [  "npm", "run", "start:migrate:prod" ]
+CMD ["sh", "-c", "npm run start:migrate:prod && npm run prisma:seed && npm run start:prod"]

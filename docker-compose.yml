@@ -1,5 +1,12 @@
 services:
   db:
+    networks:
+      - nestjs-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U root"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
     image: postgres
     restart: always
     ports:
@@ -9,19 +16,30 @@ services:
       POSTGRES_USER: root
     volumes:
       - pgdata:/var/lib/postgresql/data
-      
-  pgadmin:
-    image: dpage/pgadmin4
-    container_name: pgadmin4_container
-    restart: always
+      - ./init:/docker-entrypoint-initdb.d
+
+  backend:
+    networks:
+      - nestjs-network
+    depends_on:
+      db:
+        condition: service_healthy
+    build: ./server
     ports:
-      - "8888:80"
-    environment:
-      PGADMIN_DEFAULT_EMAIL: user-name@domain-name.com
-      PGADMIN_DEFAULT_PASSWORD: 12345
-    volumes:
-      - pgadmin-data:/var/lib/pgadmin
- 
+      - "5000:5000"
+    env_file:
+      - ./server/.env
+
+  frontend:
+    networks:
+      - nestjs-network
+    build: ./client
+    ports:
+      - "5173:5173"
+
+networks:
+  nestjs-network:
+
 volumes:
   pgdata:
   pgadmin-data:

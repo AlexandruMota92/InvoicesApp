@@ -8,7 +8,7 @@ const Invoice = (props: any) => {
     queryKey: ["invoiceData", props.invoiceId],
     queryFn: async () => {
       const response = await fetch(
-        `http://localhost:3000/invoices/${props.invoiceId}`,
+        `http://localhost:5000/invoices/${props.invoiceId}`,
         {
           method: "GET",
           headers: {

@@ -26,7 +26,7 @@ const Invoices = () => {
   const { isPending, error, data } = useQuery({
     queryKey: ["invoiceData"],
     queryFn: async () => {
-      const response = await fetch("http://localhost:3000/invoices", {
+      const response = await fetch("http://localhost:5000/invoices", {
         method: "GET",
         headers: {
           Accept: "application/json",

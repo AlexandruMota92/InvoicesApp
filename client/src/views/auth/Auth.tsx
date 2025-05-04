@@ -30,7 +30,7 @@ const Auth = () => {
 
   const login = useMutation({
     mutationFn: async (data: LoginFormData) => {
-      const response = await fetch("http://localhost:3000/auth/login", {
+      const response = await fetch("http://localhost:5000/auth/login", {
         method: "POST",
         headers: {
           Accept: "application/json",
