@@ -30,13 +30,6 @@ services:
     env_file:
       - ./server/.env
 
-  frontend:
-    networks:
-      - nestjs-network
-    build: ./client
-    ports:
-      - "5173:5173"
-
 networks:
   nestjs-network:
 
