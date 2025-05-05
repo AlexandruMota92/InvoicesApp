@@ -18,6 +18,6 @@ Simple Nestjs/React application with the help of Typescript, Redux Toolkit and R
   - seed it with both users and invoices
   - run the backend and enable all backend services (PORT:5000)
 ### Frontend
-4. in a different terminal window, from root, navigate to /client and run npm install && npm start dev
+4. in a different terminal window, from root, navigate to /client and run npm install && npm run dev
   - front end will be available at http://localhost:5173 or 5174 (check the client terminal for the exact address :) )
 5. you can login with email: user1@prisma.io password: 12345
