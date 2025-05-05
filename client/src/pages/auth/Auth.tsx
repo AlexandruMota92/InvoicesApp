@@ -2,9 +2,6 @@ import {
   Box,
   Button,
   Card,
-  FormControl,
-  FormLabel,
-  TextField,
   Typography,
 } from "@mui/material";
 import { useMutation } from "@tanstack/react-query";
@@ -17,6 +14,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { apiClient } from "../../utils/api/ApiClient";
 import CustomInput from "../../components/CustomInput";
+
+import "./Auth.css";
 
 const Auth = () => {
   const {
@@ -52,11 +51,11 @@ const Auth = () => {
 
   return (
     <>
-      <Card variant="outlined">
+      <Card className="loginCard" variant="outlined">
         <Typography
           component="h1"
           variant="h4"
-          sx={{ width: "100%", fontSize: "clamp(2rem, 10vw, 2.15rem)" }}
+          sx={{ marginBottom: "20px", width: "100%", fontSize: "clamp(2rem, 10vw, 2.15rem)" }}
         >
           Sign in
         </Typography>

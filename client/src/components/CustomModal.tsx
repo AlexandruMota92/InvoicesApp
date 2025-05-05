@@ -24,6 +24,7 @@ const CustomModal = (props: CustomModalProps) => {
       aria-describedby="parent-modal-description"
     >
       <Box className="modalBox" sx={{ ...style, width: 400 }}>
+        <h2 className="parent-modal-title">{props.title}</h2>
         {props.children}
       </Box>
     </Modal>

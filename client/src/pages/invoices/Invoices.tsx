@@ -1,20 +1,26 @@
 import { useQuery } from "@tanstack/react-query";
-import { DataGrid, GridColDef, GridEventListener } from "@mui/x-data-grid";
+import { GridEventListener } from "@mui/x-data-grid";
 import CustomModal from "../../components/CustomModal";
 import { useState } from "react";
 import Invoice from "./components/Invoice";
 import { Box } from "@mui/material";
+import {
+  ColumnDef,
+  OnChangeFn,
+  RowSelectionState,
+} from "@tanstack/react-table";
 
 import "./Invoices.css";
 import { apiClient } from "../../utils/api/ApiClient";
+import { DataTable } from "@/components/ui/data-table";
 
-const columns: GridColDef[] = [
-  { field: "vendor_name", headerName: "Vendor Name", width: 70 },
-  { field: "amount", headerName: "Amount", width: 130 },
-  { field: "due_date", headerName: "Date Due", width: 130 },
-  { field: "description", headerName: "Description", width: 130 },
-  { field: "user_id", headerName: "User Id", width: 130 },
-  { field: "paid", headerName: "Has Paid", width: 70 },
+const columns: ColumnDef<any>[] = [
+  { accessorKey: "vendor_name", header: "Vendor Name" },
+  { accessorKey: "amount", header: "Amount" },
+  { accessorKey: "due_date", header: "Date Due" },
+  { accessorKey: "description", header: "Description" },
+  { accessorKey: "user_id", header: "User Id" },
+  { accessorKey: "paid", header: "Has Paid" },
 ];
 
 const Invoices = () => {
@@ -33,9 +39,9 @@ const Invoices = () => {
     setSelectedInvoiceId(null);
   };
 
-  const handleOpenModal: GridEventListener<"rowClick"> = (params) => {
+  const handleOpenModal: any = (params: any) => {
     setOpen(true);
-    setSelectedInvoiceId(params.row.id);
+    setSelectedInvoiceId(params.id);
   };
 
   if (isPending) return "Loading...";
@@ -43,17 +49,10 @@ const Invoices = () => {
 
   return (
     <Box className="wrapper">
-      <CustomModal open={open} onClose={handleCloseModal}>
+      <CustomModal title="Invoice Data" open={open} onClose={handleCloseModal}>
         <Invoice invoiceId={selectedInvoiceId} />
       </CustomModal>
-      <DataGrid
-        className="dataGrid"
-        rows={data}
-        columns={columns}
-        // initialState={{ pagination: { paginationModel } }}
-        pageSizeOptions={[5, 10]}
-        onRowClick={handleOpenModal}
-      />
+      <DataTable onRowClick={handleOpenModal} columns={columns} data={data} />
     </Box>
   );
 };
