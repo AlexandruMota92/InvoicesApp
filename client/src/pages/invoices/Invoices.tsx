@@ -1,12 +1,12 @@
 import { useQuery } from "@tanstack/react-query";
-import { useSelector } from "react-redux";
 import { DataGrid, GridColDef, GridEventListener } from "@mui/x-data-grid";
-import CustomModal from "../common/CustomModal";
+import CustomModal from "../../components/CustomModal";
 import { useState } from "react";
-import Invoice from "./Invoice";
+import Invoice from "./components/Invoice";
 import { Box } from "@mui/material";
 
 import "./Invoices.css";
+import { apiClient } from "../../utils/api/ApiClient";
 
 const columns: GridColDef[] = [
   { field: "vendor_name", headerName: "Vendor Name", width: 70 },
@@ -21,24 +21,10 @@ const Invoices = () => {
   const [open, setOpen] = useState(false);
   const [selectedInvoiceId, setSelectedInvoiceId] = useState(null);
 
-  const token = useSelector((state: any) => state.token.token);
-
   const { isPending, error, data } = useQuery({
     queryKey: ["invoiceData"],
-    queryFn: async () => {
-      const response = await fetch("http://localhost:5000/invoices", {
-        method: "GET",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      if (!response.ok) {
-        throw await response.json();
-      }
-
-      return response.json();
+    queryFn: () => {
+      return apiClient.get("/invoices");
     },
   });
 

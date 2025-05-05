@@ -1,28 +1,12 @@
 import { Grid, TextField } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
-import { useSelector } from "react-redux";
+import { apiClient } from "../../../utils/api/ApiClient";
 
 const Invoice = (props: any) => {
-  const token = useSelector((state: any) => state.token.token);
   const { isPending, error, data } = useQuery({
     queryKey: ["invoiceData", props.invoiceId],
-    queryFn: async () => {
-      const response = await fetch(
-        `http://localhost:5000/invoices/${props.invoiceId}`,
-        {
-          method: "GET",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      if (!response.ok) {
-        throw await response.json();
-      }
-
-      return response.json();
+    queryFn: () => {
+      return apiClient.get(`/invoices/${props.invoiceId}`);
     },
   });
 
@@ -39,7 +23,7 @@ const Invoice = (props: any) => {
             value={data.vendor_name}
             disabled
             variant="outlined"
-            InputLabelProps={{ shrink: true }}
+            slotProps={{ inputLabel: { shrink: true } }}
           />
         </Grid>
 
@@ -50,7 +34,7 @@ const Invoice = (props: any) => {
             value={data.amount}
             disabled
             variant="outlined"
-            InputLabelProps={{ shrink: true }}
+            slotProps={{ inputLabel: { shrink: true } }}
           />
         </Grid>
 
@@ -61,7 +45,7 @@ const Invoice = (props: any) => {
             value={data.due_date}
             disabled
             variant="outlined"
-            InputLabelProps={{ shrink: true }}
+            slotProps={{ inputLabel: { shrink: true } }}
           />
         </Grid>
 
@@ -72,7 +56,7 @@ const Invoice = (props: any) => {
             value={data.user_id}
             disabled
             variant="outlined"
-            InputLabelProps={{ shrink: true }}
+            slotProps={{ inputLabel: { shrink: true } }}
           />
         </Grid>
 
@@ -83,7 +67,7 @@ const Invoice = (props: any) => {
             value={data.description}
             disabled
             variant="outlined"
-            InputLabelProps={{ shrink: true }}
+            slotProps={{ inputLabel: { shrink: true } }}
             multiline
             minRows={4}
           />
@@ -96,7 +80,7 @@ const Invoice = (props: any) => {
             value={data.paid ? "Yes" : "No"}
             disabled
             variant="outlined"
-            InputLabelProps={{ shrink: true }}
+            slotProps={{ inputLabel: { shrink: true } }}
           />
         </Grid>
       </Grid>
