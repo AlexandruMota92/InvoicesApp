@@ -10,13 +10,14 @@ Simple Nestjs/React application with the help of Typescript, Redux Toolkit and R
 
 1. Clone the repository
 ### Backend
-2. From root, run docker compose up
+2. From root, navigate to /server and create a .env file with the line: DATABASE_URL="postgresql://root:root@db:5432/invoices?schema=public"
+3. From root, run docker compose up
   - this will start PostgreSQL 
   - create the invoices database
   - run Prisma migrations for Invoice and User tables
   - seed it with both users and invoices
   - run the backend and enable all backend services (PORT:5000)
 ### Frontend
-3. in a different terminal window, from root, navigate to /client and run npm install && npm start dev
+4. in a different terminal window, from root, navigate to /client and run npm install && npm start dev
   - front end will be available at http://localhost:5173 or 5174 (check the client terminal for the exact address :) )
-4. you can login with email: user1@prisma.io password: 12345
+5. you can login with email: user1@prisma.io password: 12345
